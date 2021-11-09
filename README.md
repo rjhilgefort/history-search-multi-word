@@ -2,10 +2,15 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
 ![ZSH 5.0.0](https://img.shields.io/badge/zsh-v5.0.0-orange.svg?style=flat-square)
 
-[![paypal](https://img.shields.io/badge/-Donate-yellow.svg?longCache=true&style=for-the-badge)](https://www.paypal.me/ZdharmaInitiative)
-[![patreon](https://img.shields.io/badge/-Patreon-orange.svg?longCache=true&style=for-the-badge)](https://www.patreon.com/psprint)
-<br/>You can request a feature when donating, even fancy or advanced ones get implemented this way. [There are
-reports](DONATIONS.md) about what is being done with the money received.
+# ⚠️ 2021 Update
+
+This project was revived from a cached copy of the repo originally located at `https://github.com/zdharma/history-search-multi-word` which is now archived/removed. It appears that the maintainer deleted his GitHub account and since I wasn't able to find it elsewhere, I'm simply re-hosting it under my namespace. I don't have any expertise with this code base but I'll accept PRs and issues to help keep the project alive- I use this on a regular basis and couldn't live without it.
+
+I use [Antigen](https://github.com/zsh-users/antigen) to install this plugin directly from this repo like this in my `~/.zshrc`. See also the [install instructions below](#installation):
+
+```sh
+antigen bundle rjhilgefort/history-search-multi-word
+```
 
 # Introduction
 
@@ -45,22 +50,30 @@ schedprompt
 ```
 
 to refresh the clock in prompt every second. The `reset-prompt-protect` zstyle
-needs to be set to 1 for correct cooperation with HSMW. Or, you could use `zle
-.reset-prompt` (i.e. with the dot in front) to call the original, not
+needs to be set to 1 for correct cooperation with HSMW. Or, you could use `zle .reset-prompt` (i.e. with the dot in front) to call the original, not
 overloaded (by F-Sy-H, zsh-autosuggestsions, etc.) `reset-prompt` widget.
 
 # News
-* 14-07-2020
-  - If an `[…]` string will occur in the search query, it'll be interpreted as
-    pattern. So that it's possible to enter as the search query e.g.: `print
-    ["a-zA-Z0-9_-]` or `print [^[:alpha:]]`, etc.
 
-* 28-10-2019
+- 08-11-21
+
+  - Cleaned up documentation to: reference `rjhilgefort`, remove "Donate" section, remove IRC channel section.
+  - Project revived under the namespace `rjhilgefort/history-search-multi-word`.
+  - Initial re-commit of the original source from my `.antigen` folder.
+
+- 14-07-2020
+
+  - If an `[…]` string will occur in the search query, it'll be interpreted as
+    pattern. So that it's possible to enter as the search query e.g.: `print ["a-zA-Z0-9_-]` or `print [^[:alpha:]]`, etc.
+
+- 28-10-2019
+
   - `^` – if first – matches beginning of the command's string, $ – if last –
     its end. So that it's possible to enter `'^ls'` and have only commands
     starting with `ls` matched.
 
-* 25-05-2018
+- 25-05-2018
+
   - Hash holding paths that shouldn't be grepped (globbed) – blacklist for slow disks, mounts, etc.:
 
     ```zsh
@@ -69,70 +82,85 @@ overloaded (by F-Sy-H, zsh-autosuggestsions, etc.) `reset-prompt` widget.
     FAST_BLIST_PATTERNS[/mount/disk2/*]=1
     ```
 
-* 13-06-2017
+- 13-06-2017
+
   - Canceling search doesn't clear entered query. Change to previous behavior via:
 
     ```zsh
     zstyle ":plugin:history-search-multi-word" clear-on-cancel "yes"
     ```
 
-* 12-04-2017
+- 12-04-2017
+
   - Page size can be relative to screen height, e.g.:
 
     ```zsh
     zstyle ":history-search-multi-word" page-size "LINES/4"
     ```
 
-* 05-04-2017
+- 05-04-2017
+
   - 17% performance optimization
 
-* 27-01-2017
+- 27-01-2017
+
   - Input-driven case-sensivity of search – if your query contains capital latin letters, search will be case-sensitive
 
-* 12-11-2016
+- 12-11-2016
+
   - HSMW can now show context of selected history entry! Just hit `Ctrl-K`, [video](https://asciinema.org/a/92516)
   - More performance optimizations
 
-* 31-10-2016
+- 31-10-2016
+
   - Newlines do not disturb the parser anymore, and are also highlighted with a dark color – [video](https://asciinema.org/a/91159)
 
-* 27-10-2016
+- 27-10-2016
+
   - New optimizations – **30%** speed up of syntax highlighting!
   - Architectural change – syntax highlighting is now computed rarely, so any possible performance problems are now solved, in advance!
 
-* 24-10-2016
+- 24-10-2016
+
   - Workaround for Zsh versions like 5.0.2 has been added – **Ctrl-V** and **ESC** cancel search. On such Zsh
     versions Ctrl-C might not work. Fully problem-free Zsh version will be the upcoming 5.3, where
     I have together with Zsh Hackers fully fixed the Ctrl-C issue.
 
-* 22-10-2016
+- 22-10-2016
+
   - Search process has been optimized by 20%! History sizes like 100000 are now supported.
   - Active history entry can be `underline`, `standout` (i.e. inverse video), `bold`, `bg=blue`, etc. with
     the new Zstyle `:plugin:history-search-multi-word / active` (see Zstyles section) – [video](https://asciinema.org/a/90214).
 
-* 16-10-2016
+- 16-10-2016
+
   - More optimizations of syntax highlighting (40% in total for the two days) – new video above.
 
-* 15-10-2016
+- 15-10-2016
+
   - The compact, already optimized (by me) [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) part has been further optimized by 21%!
     Also, more tokens are highlighted – variable expressions like `"${(@)var[1,3]}"` (when quoted).
 
-* 11-10-2016
+- 11-10-2016
+
   - Syntax highlighting of history – adapted, fine crafted, **small** part of [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
     to color what `hsmw` shows:
 
     ![syntax highlighting](http://imagizer.imageshack.us/a/img921/1503/bMAF59.gif)
 
-* 20-09-2016
+- 20-09-2016
+
   - Keys Page Up and Page Down work and page-wise move along history. Also, `Ctrl-P`, `Ctrl-N`
     move to previous and next entries.
 
-* 19-09-2016
+- 19-09-2016
+
   - Better immunity to [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
     and [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) – home,
     end, left and right cursor keys now work smoothly.
 
-* 25-05-2016
+- 25-05-2016
+
   - Cooperation with
     [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
     plugin
@@ -157,32 +185,29 @@ If using a plugin manager, then `Zplugin` is recommended, but you can use any
 other too, and also install with `Oh My Zsh` (by copying directory to
 `~/.oh-my-zsh/custom/plugins`).
 
+### [Zplugin](https://github.com/rjhilgefort/zplugin)
 
-### [Zplugin](https://github.com/zdharma/zplugin)
-
-Add `zplugin load zdharma/history-search-multi-word` to your `.zshrc` file.
+Add `zplugin load rjhilgefort/history-search-multi-word` to your `.zshrc` file.
 Zplugin will handle cloning the plugin for you automatically the next time you
 start zsh.
 
 ### Antigen
 
-Add `antigen bundle zdharma/history-search-multi-word` to your `.zshrc` file.
+Add `antigen bundle rjhilgefort/history-search-multi-word` to your `.zshrc` file.
 Antigen will handle cloning the plugin for you automatically the next time you
-start zsh. You can also add the plugin to a running zsh with `antigen bundle
-zdharma/history-search-multi-word` for testing before adding it to your
+start zsh. You can also add the plugin to a running zsh with `antigen bundle rjhilgefort/history-search-multi-word` for testing before adding it to your
 `.zshrc`.
 
 ### Oh-My-Zsh
 
 1. `cd ~/.oh-my-zsh/custom/plugins`
-2. `git clone git@github.com:zdharma/history-search-multi-word.git`
+2. `git clone git@github.com:rjhilgefort/history-search-multi-word.git`
 3. Add `history-search-multi-word` to your plugin list
 
 ### Zgen
 
-Add `zgen load zdharma/history-search-multi-word` to your .zshrc file in the same
+Add `zgen load rjhilgefort/history-search-multi-word` to your .zshrc file in the same
 place you're doing your other `zgen load` calls in.
-
 
 ### Arch Linux
 
@@ -190,12 +215,11 @@ place you're doing your other `zgen load` calls in.
 
 2. Add the following to your `.zshrc`:
 
-    ```sh
-    source /usr/share/zsh/plugins/history-search-multi-word/history-search-multi-word.plugin.zsh
-    ```
+   ```sh
+   source /usr/share/zsh/plugins/history-search-multi-word/history-search-multi-word.plugin.zsh
+   ```
 
 3. Start a new terminal session
-
 
 # Customizing
 
@@ -216,7 +240,7 @@ Syntax highlighting is customized via `HSMW_HIGHLIGHT_STYLES` associative array.
 It has keys like `reserved-word`, `alias`, `command`, `path`, etc. which are assigned
 with strings like `fg=blue,bold`, to configure how given elements are to be
 colored. If you assign this array before or after loading `hsmw` you will change the defaults. Complete list
-of available keys is [at the beginning](https://github.com/zdharma/history-search-multi-word/blob/master/hsmw-highlight#L34-L62)
+of available keys is [at the beginning](https://github.com/rjhilgefort/history-search-multi-word/blob/master/hsmw-highlight#L34-L62)
 of `hsmw-highlight` file. Example `~/.zshrc` addition that sets `path` key –
 paths that exist will be highlighted with background magenta, foreground white, bold:
 
@@ -238,11 +262,3 @@ Following code will use 256 colors to highlight command separators (like ";" or 
 ```zsh
 HSMW_HIGHLIGHT_STYLES[commandseparator]="fg=241,bg=17"
 ```
-
-# IRC Channel
-
-Channel `#zplugin@freenode` is a support place for all author's projects. Connect to:
-[chat.freenode.net:6697](ircs://chat.freenode.net:6697/%23zplugin) (SSL) or [chat.freenode.net:6667](irc://chat.freenode.net:6667/%23zplugin)
- and join #zplugin.
-
-Following is a quick access via Webchat [![IRC](https://kiwiirc.com/buttons/chat.freenode.net/zplugin.png)](https://kiwiirc.com/client/chat.freenode.net:+6697/#zplugin)
